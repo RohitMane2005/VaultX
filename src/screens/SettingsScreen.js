@@ -41,8 +41,8 @@ export default function SettingsScreen() {
     try {
       setImporting(true);
       const clip = await Clipboard.getStringAsync();
-      if (!clip || !clip.includes('vaultx-')) {
-        Alert.alert('Invalid data', 'No valid VaultX backup found in clipboard.\n\nCopy a VaultX JSON backup first.');
+      if (!clip || !clip.includes('vaultora-')) {
+        Alert.alert('Invalid data', 'No valid Vaultora backup found in clipboard.\n\nCopy a Vaultora JSON backup first.');
         return;
       }
       Alert.alert(

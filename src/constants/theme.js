@@ -1,4 +1,4 @@
-// src/constants/theme.js — VaultX Design Tokens
+// src/constants/theme.js — Vaultora Design Tokens
 
 export const Colors = {
   bg:          '#0d0d0d',

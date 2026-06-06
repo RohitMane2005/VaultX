@@ -1,4 +1,4 @@
-# VaultX — Personal Productivity App
+# Vaultora — Personal Productivity App
 
 > by @who.xsor | Built with React Native + Expo + Zustand
 

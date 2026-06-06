@@ -90,7 +90,7 @@ export const useTaskStore = create(
         );
       },
     }),
-    { name: 'vaultx-tasks', storage: createJSONStorage(() => AsyncStorage) }
+    { name: 'vaultora-tasks', storage: createJSONStorage(() => AsyncStorage) }
   )
 );
 
@@ -136,7 +136,7 @@ export const useNoteStore = create(
       deleteNote: (id) =>
         set((s) => ({ notes: s.notes.filter((n) => n.id !== id) })),
     }),
-    { name: 'vaultx-notes', storage: createJSONStorage(() => AsyncStorage) }
+    { name: 'vaultora-notes', storage: createJSONStorage(() => AsyncStorage) }
   )
 );
 
@@ -184,7 +184,7 @@ export const useScriptStore = create(
       deleteScript: (id) =>
         set((s) => ({ scripts: s.scripts.filter((sc) => sc.id !== id) })),
     }),
-    { name: 'vaultx-scripts', storage: createJSONStorage(() => AsyncStorage) }
+    { name: 'vaultora-scripts', storage: createJSONStorage(() => AsyncStorage) }
   )
 );
 
@@ -220,7 +220,7 @@ export const useSnippetStore = create(
       deleteSnippet: (id) =>
         set((s) => ({ snippets: s.snippets.filter((sn) => sn.id !== id) })),
     }),
-    { name: 'vaultx-snippets', storage: createJSONStorage(() => AsyncStorage) }
+    { name: 'vaultora-snippets', storage: createJSONStorage(() => AsyncStorage) }
   )
 );
 
@@ -305,7 +305,7 @@ export const useHabitStore = create(
       deleteHabit: (id) =>
         set((s) => ({ habits: s.habits.filter((h) => h.id !== id) })),
     }),
-    { name: 'vaultx-habits', storage: createJSONStorage(() => AsyncStorage) }
+    { name: 'vaultora-habits', storage: createJSONStorage(() => AsyncStorage) }
   )
 );
 
@@ -344,7 +344,7 @@ export const useIdeaStore = create(
       deleteIdea: (id) =>
         set((s) => ({ ideas: s.ideas.filter((i) => i.id !== id) })),
     }),
-    { name: 'vaultx-ideas', storage: createJSONStorage(() => AsyncStorage) }
+    { name: 'vaultora-ideas', storage: createJSONStorage(() => AsyncStorage) }
   )
 );
 
@@ -363,7 +363,7 @@ export const useHashtagStore = create(
       deleteSet: (id) =>
         set((s) => ({ sets: s.sets.filter((hs) => hs.id !== id) })),
     }),
-    { name: 'vaultx-hashtags', storage: createJSONStorage(() => AsyncStorage) }
+    { name: 'vaultora-hashtags', storage: createJSONStorage(() => AsyncStorage) }
   )
 );
 
@@ -403,13 +403,13 @@ export const useFocusStore = create(
         return get().sessions.filter((s) => new Date(s.completedAt) >= weekAgo);
       },
     }),
-    { name: 'vaultx-focus', storage: createJSONStorage(() => AsyncStorage) }
+    { name: 'vaultora-focus', storage: createJSONStorage(() => AsyncStorage) }
   )
 );
 
 // ─── BACKUP / RESTORE UTILITIES ──────────────────────────────────────────────
 export async function exportAllData() {
-  const keys = ['vaultx-tasks', 'vaultx-notes', 'vaultx-scripts', 'vaultx-snippets', 'vaultx-habits', 'vaultx-ideas', 'vaultx-hashtags', 'vaultx-focus'];
+  const keys = ['vaultora-tasks', 'vaultora-notes', 'vaultora-scripts', 'vaultora-snippets', 'vaultora-habits', 'vaultora-ideas', 'vaultora-hashtags', 'vaultora-focus'];
   const data = {};
   for (const key of keys) {
     const val = await AsyncStorage.getItem(key);
@@ -422,7 +422,7 @@ export async function exportAllData() {
 
 export async function importAllData(jsonString) {
   const data = JSON.parse(jsonString);
-  const keys = ['vaultx-tasks', 'vaultx-notes', 'vaultx-scripts', 'vaultx-snippets', 'vaultx-habits', 'vaultx-ideas', 'vaultx-hashtags', 'vaultx-focus'];
+  const keys = ['vaultora-tasks', 'vaultora-notes', 'vaultora-scripts', 'vaultora-snippets', 'vaultora-habits', 'vaultora-ideas', 'vaultora-hashtags', 'vaultora-focus'];
   for (const key of keys) {
     if (data[key]) {
       await AsyncStorage.setItem(key, JSON.stringify(data[key]));
@@ -431,6 +431,6 @@ export async function importAllData(jsonString) {
 }
 
 export async function clearAllData() {
-  const keys = ['vaultx-tasks', 'vaultx-notes', 'vaultx-scripts', 'vaultx-snippets', 'vaultx-habits', 'vaultx-ideas', 'vaultx-hashtags', 'vaultx-focus'];
+  const keys = ['vaultora-tasks', 'vaultora-notes', 'vaultora-scripts', 'vaultora-snippets', 'vaultora-habits', 'vaultora-ideas', 'vaultora-hashtags', 'vaultora-focus'];
   await AsyncStorage.multiRemove(keys);
 }

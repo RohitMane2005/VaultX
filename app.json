@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "VaultX",
-    "slug": "vaultx",
+    "name": "Vaultora",
+    "slug": "vaultora",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,13 +11,14 @@
     },
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.xsor.vaultx"
+      "bundleIdentifier": "com.xsor.vaultora"
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#0a0a0a"
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#0d0d0d"
       },
-      "package": "com.xsor.vaultx"
+      "package": "com.xsor.vaultora"
     },
     "extra": {
       "eas": {
