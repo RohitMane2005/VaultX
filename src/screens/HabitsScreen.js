@@ -26,7 +26,7 @@ function getWeekDates() {
 
 export default function HabitsScreen() {
   const [modalOpen, setModalOpen] = useState(false);
-  const { habits, toggleToday, deleteHabit, getStreak, getBestStreak } = useHabitStore();
+  const { habits, toggleToday, toggleDate, deleteHabit, getStreak, getBestStreak } = useHabitStore();
 
   const todayStr = new Date().toDateString();
   const todayCount = habits.filter(h =>
@@ -105,6 +105,7 @@ export default function HabitsScreen() {
                 habit={h}
                 streak={getStreak(h.id)}
                 onToggle={() => toggleToday(h.id)}
+                onToggleDate={(date) => toggleDate(h.id, date)}
                 onDelete={() => handleDelete(h)}
               />
             ))}
@@ -118,7 +119,7 @@ export default function HabitsScreen() {
 }
 
 /* ── Habit row ───────────────────────────────────────────────────────────── */
-function HabitRow({ habit, streak, onToggle, onDelete }) {
+function HabitRow({ habit, streak, onToggle, onToggleDate, onDelete }) {
   const week = getWeekDates();
   const todayStr = new Date().toDateString();
   const color = habit.color || Colors.accent;
@@ -158,7 +159,11 @@ function HabitRow({ habit, streak, onToggle, onDelete }) {
                 isToday && !done && { borderColor: color },
                 future && { opacity: 0.3 },
               ]}
-              onPress={isToday ? () => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); onToggle(); } : undefined}
+              onPress={future ? undefined : () => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                if (isToday) onToggle();
+                else onToggleDate(d);
+              }}
               disabled={future}
             >
               <Text style={[st.dotText, done && { color: '#fff' }]}>

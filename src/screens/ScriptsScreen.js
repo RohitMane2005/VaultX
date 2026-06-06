@@ -106,20 +106,18 @@ export default function ScriptsScreen() {
         }
       />
 
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={st.filterRow}>
-        <View style={st.tabBar}>
-          {['All', ...PLATFORMS].map(p => (
-            <TouchableOpacity
-              key={p}
-              style={[st.tabItem, platform === p && st.tabItemActive]}
-              onPress={() => { Haptics.selectionAsync(); setPlatform(p); }}
-              activeOpacity={0.7}
-            >
-              <Text style={[st.tabText, platform === p && st.tabTextActive]}>{p}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </ScrollView>
+      <View style={st.tabBar}>
+        {['All', ...PLATFORMS].map(p => (
+          <TouchableOpacity
+            key={p}
+            style={[st.tabItem, platform === p && st.tabItemActive]}
+            onPress={() => { Haptics.selectionAsync(); setPlatform(p); }}
+            activeOpacity={0.7}
+          >
+            <Text style={[st.tabText, platform === p && st.tabTextActive]}>{p}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
 
       <ScrollView style={{ flex: 1 }} contentContainerStyle={st.content} showsVerticalScrollIndicator={false}>
         {filtered.length === 0 ? (
@@ -310,23 +308,25 @@ const st = StyleSheet.create({
   safe: { flex: 1, backgroundColor: Colors.bg },
   addBtn: { backgroundColor: Colors.accent, paddingHorizontal: 14, paddingVertical: 7, borderRadius: Radius.sm },
   addBtnText: { fontSize: 13, fontWeight: '600', color: '#fff' },
-  filterRow: { paddingHorizontal: Spacing.lg, paddingBottom: Spacing.md },
   tabBar: {
     flexDirection: 'row',
+    marginHorizontal: Spacing.lg,
+    marginBottom: Spacing.md,
     backgroundColor: Colors.card,
     borderRadius: Radius.sm,
     padding: 3,
   },
   tabItem: {
-    paddingHorizontal: 14,
+    flex: 1,
     paddingVertical: 9,
+    alignItems: 'center',
     borderRadius: 6,
   },
   tabItemActive: {
     backgroundColor: Colors.accent,
   },
   tabText: {
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: '600',
     color: Colors.textMuted,
   },

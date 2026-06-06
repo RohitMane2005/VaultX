@@ -94,51 +94,6 @@ export const useTaskStore = create(
   )
 );
 
-// ─── NOTES STORE ─────────────────────────────────────────────────────────────
-export const useNoteStore = create(
-  persist(
-    (set) => ({
-      notes: [],
-
-      addNote: (data) => {
-        const note = {
-          id: uuidv4(),
-          title: '',
-          content: '',
-          tags: [],
-          pinned: false,
-          locked: false,   // private vault feature
-          color: null,
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-          ...data,
-        };
-        set((s) => ({ notes: [note, ...s.notes] }));
-        return note;
-      },
-
-      updateNote: (id, data) =>
-        set((s) => ({
-          notes: s.notes.map((n) =>
-            n.id === id
-              ? { ...n, ...data, updatedAt: new Date().toISOString() }
-              : n
-          ),
-        })),
-
-      togglePin: (id) =>
-        set((s) => ({
-          notes: s.notes.map((n) =>
-            n.id === id ? { ...n, pinned: !n.pinned } : n
-          ),
-        })),
-
-      deleteNote: (id) =>
-        set((s) => ({ notes: s.notes.filter((n) => n.id !== id) })),
-    }),
-    { name: 'vaultora-notes', storage: createJSONStorage(() => AsyncStorage) }
-  )
-);
 
 // ─── SCRIPTS STORE ───────────────────────────────────────────────────────────
 export const useScriptStore = create(
@@ -188,41 +143,6 @@ export const useScriptStore = create(
   )
 );
 
-// ─── SNIPPETS STORE ──────────────────────────────────────────────────────────
-export const useSnippetStore = create(
-  persist(
-    (set) => ({
-      snippets: [],
-
-      addSnippet: (data) => {
-        const snippet = {
-          id: uuidv4(),
-          title: '',
-          code: '',
-          language: 'java',
-          description: '',
-          tags: [],
-          pinned: false,
-          createdAt: new Date().toISOString(),
-          ...data,
-        };
-        set((s) => ({ snippets: [snippet, ...s.snippets] }));
-        return snippet;
-      },
-
-      updateSnippet: (id, data) =>
-        set((s) => ({
-          snippets: s.snippets.map((sn) =>
-            sn.id === id ? { ...sn, ...data } : sn
-          ),
-        })),
-
-      deleteSnippet: (id) =>
-        set((s) => ({ snippets: s.snippets.filter((sn) => sn.id !== id) })),
-    }),
-    { name: 'vaultora-snippets', storage: createJSONStorage(() => AsyncStorage) }
-  )
-);
 
 // ─── HABITS STORE ────────────────────────────────────────────────────────────
 export const useHabitStore = create(
@@ -264,19 +184,45 @@ export const useHabitStore = create(
         }));
       },
 
+      toggleDate: (id, date) => {
+        const dateStr = date.toDateString();
+        set((s) => ({
+          habits: s.habits.map((h) => {
+            if (h.id !== id) return h;
+            const alreadyDone = h.completedDates.some(
+              (d) => new Date(d).toDateString() === dateStr
+            );
+            return {
+              ...h,
+              completedDates: alreadyDone
+                ? h.completedDates.filter(
+                    (d) => new Date(d).toDateString() !== dateStr
+                  )
+                : [...h.completedDates, date.toISOString()],
+            };
+          }),
+        }));
+      },
+
       getStreak: (habitId) => {
         const habit = get().habits.find((h) => h.id === habitId);
         if (!habit) return 0;
 
         let streak = 0;
         const today = new Date();
-        for (let i = 0; i < 365; i++) {
+        const todayStr = today.toDateString();
+        const todayDone = habit.completedDates.some((d) => new Date(d).toDateString() === todayStr);
+        // If today is done, start counting from today; otherwise from yesterday
+        const startOffset = todayDone ? 0 : 1;
+        for (let i = startOffset; i < 365; i++) {
           const date = new Date(today);
           date.setDate(date.getDate() - i);
           const dateStr = date.toDateString();
           if (habit.completedDates.some((d) => new Date(d).toDateString() === dateStr)) {
             streak++;
-          } else if (i > 0) break;
+          } else {
+            break;
+          }
         }
         return streak;
       },
@@ -348,24 +294,6 @@ export const useIdeaStore = create(
   )
 );
 
-// ─── HASHTAG SETS STORE ──────────────────────────────────────────────────────
-export const useHashtagStore = create(
-  persist(
-    (set) => ({
-      sets: [],
-
-      addSet: (name, tags) => {
-        const set_ = { id: uuidv4(), name, tags, createdAt: new Date().toISOString() };
-        set((s) => ({ sets: [set_, ...s.sets] }));
-        return set_;
-      },
-
-      deleteSet: (id) =>
-        set((s) => ({ sets: s.sets.filter((hs) => hs.id !== id) })),
-    }),
-    { name: 'vaultora-hashtags', storage: createJSONStorage(() => AsyncStorage) }
-  )
-);
 
 // ─── FOCUS STORE ─────────────────────────────────────────────────────────────
 export const useFocusStore = create(

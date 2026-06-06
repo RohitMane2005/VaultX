@@ -30,8 +30,10 @@ export default function FocusTimer({ visible, onClose }) {
   const [running, setRunning] = useState(false);
   const [completed, setCompleted] = useState(false);
   const intervalRef = useRef(null);
+  const presetRef = useRef(PRESETS[0]);
 
   const currentPreset = PRESETS[preset];
+  presetRef.current = currentPreset;
   const totalSeconds = currentPreset.minutes * 60;
   const progress = 1 - timeLeft / totalSeconds;
 
@@ -52,8 +54,9 @@ export default function FocusTimer({ visible, onClose }) {
             clearInterval(intervalRef.current);
             setRunning(false);
             setCompleted(true);
-            // Session complete
-            addSession({ duration: currentPreset.minutes, type: currentPreset.type });
+            // Session complete — use ref to avoid stale closure
+            const p = presetRef.current;
+            addSession({ duration: p.minutes, type: p.type });
             Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
             Vibration.vibrate([0, 400, 200, 400]);
             return 0;

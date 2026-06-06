@@ -3,8 +3,7 @@ import { Text, View, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Colors } from '../constants/theme';
-import { useTaskStore } from '../store';
-import { useIdeaStore } from '../store';
+import { useTaskStore, useIdeaStore } from '../store';
 
 import HomeScreen from '../screens/HomeScreen';
 import TasksScreen from '../screens/TasksScreen';

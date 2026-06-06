@@ -140,7 +140,7 @@ export default function HomeScreen({ navigation }) {
     <SafeAreaView style={st.safe} edges={['top']}>
       {/* Logo */}
       <View style={st.topBar}>
-        <Text style={st.logo}>vault<Text style={{ color: Colors.accent }}>x</Text></Text>
+        <Text style={st.logo}>Vault<Text style={{ color: Colors.accent }}>ora</Text></Text>
         <TouchableOpacity style={st.captureBtn} onPress={() => setCaptureOpen(true)}>
           <Text style={st.captureBtnText}>+ Idea</Text>
         </TouchableOpacity>

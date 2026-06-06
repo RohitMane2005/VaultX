@@ -172,7 +172,7 @@ export default function SettingsScreen() {
         <Text style={st.sectionLabel}>ABOUT</Text>
         <View style={st.card}>
           <View style={st.aboutRow}>
-            <Text style={st.aboutLogo}>vault<Text style={{ color: Colors.accent }}>x</Text></Text>
+            <Text style={st.aboutLogo}>Vault<Text style={{ color: Colors.accent }}>ora</Text></Text>
             <Text style={st.aboutVersion}>v1.0.0</Text>
           </View>
           <Text style={st.aboutDesc}>
