@@ -18,6 +18,11 @@
         "backgroundColor": "#0a0a0a"
       },
       "package": "com.xsor.vaultx"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0fddd91e-7b99-4fc9-bbfe-836a79df1f87"
+      }
     }
   }
 }
