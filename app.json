@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Vaultora",
-    "slug": "vaultora",
+    "slug": "vaultx",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,6 +24,7 @@
       "eas": {
         "projectId": "0fddd91e-7b99-4fc9-bbfe-836a79df1f87"
       }
-    }
+    },
+    "owner": "xsor"
   }
 }
